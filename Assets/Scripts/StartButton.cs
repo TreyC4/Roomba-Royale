@@ -7,6 +7,12 @@ using UnityEngine.SceneManagement;
 public class StartButtonScript : MonoBehaviour
 {
     public void switchScene() {
-        SceneManager.LoadScene("FirstLevel");
+        if (SceneManager.GetActiveScene().name == "FirstLevel") {
+            SceneManager.LoadScene("StartMenu"); 
+            SceneManager.UnloadSceneAsync("FirstLevel");
+        }
+        else {
+            SceneManager.LoadScene("FirstLevel");
+        }
     }
 }

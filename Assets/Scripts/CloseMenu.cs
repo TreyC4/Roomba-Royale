@@ -21,8 +21,5 @@ public class CloseMenu : MonoBehaviour
         if (menu.activeSelf) {
             menu.SetActive(false);
         }
-        else {
-            menu.SetActive(true);
-        }
     }
 }

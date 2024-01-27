@@ -7,7 +7,6 @@ using UnityEngine;
 public class Roomba : MonoBehaviour
 {
     public float HP = 100;
-<<<<<<< HEAD
     private RoombaController roombaController;
     private MutateScript mutateController; 
     private float SPD;
@@ -24,21 +23,12 @@ public class Roomba : MonoBehaviour
         SPD = roombaController.moveSpeed;
     }
     void Update() {
-=======
-
-    private float SPD = RoombaController.moveSpeed;
-
-    void Start(){
-        print("SPD: " + SPD);
-        
->>>>>>> parent of 5cd6377 (updated roomba class and added menu button)
     }
     
     public void takeDamage(float damageTaken){
         HP -= damageTaken;
         print("HP: " + HP);
     }
-<<<<<<< HEAD
     void eat(float trashValue) {
         XP += trashValue;
         if (XP >= level * levelFactor) {
@@ -51,7 +41,5 @@ public class Roomba : MonoBehaviour
     public float getXP() {
         return XP;
     }
-=======
 
->>>>>>> parent of 5cd6377 (updated roomba class and added menu button)
 }

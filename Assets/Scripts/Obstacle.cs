@@ -8,7 +8,7 @@ public class Obstacle : MonoBehaviour
 
     private float damageTaken = 5;
     private void OnTriggerEnter2D(Collider2D collision){
-        if(collision.CompareTag("roomba")){
+        if (collision.CompareTag("roomba")) {
             roomba.takeDamage(damageTaken);
             print("hit");
         }

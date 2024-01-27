@@ -25,8 +25,8 @@ public class Scripts : MonoBehaviour
         // Move the circle based on input
         Vector3 moveDirection = new Vector3(0, verticalInput, 0);
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-        innerCircle.transform.localPosition = transform.localPosition - new Vector3(0, 0.1f, 0); 
-        suction.transform.SetLocalPositionAndRotation(transform.localPosition - new Vector3(0, 1f, 0), transform.localRotation); 
+        
+        innerCircle.transform.localPosition = transform.localPosition;  
         // Rotate the circle based on horizontal input
         if (horizontalInput != 0)
         {

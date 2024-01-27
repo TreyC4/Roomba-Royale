@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoombaController : MonoBehaviour
 {
-    public static float moveSpeed = 5f;
+    public float moveSpeed = 2f;
     public float rotationSpeed = 200f;
     
     public GameObject innerCircle; 
@@ -33,5 +33,8 @@ public class RoombaController : MonoBehaviour
             float rotationAmount = -horizontalInput * rotationSpeed * Time.deltaTime;
             transform.Rotate(Vector3.forward, rotationAmount);
         }
+    }
+    public void setSpeed(float speed) {
+        moveSpeed += speed;
     }
 }

@@ -34,7 +34,6 @@ public class TimerScript : MonoBehaviour
         else {
             SetTextDisplay(false);
         }
-        print(timer);
     }
     void resetTimer() {
         timer = timeDuration;

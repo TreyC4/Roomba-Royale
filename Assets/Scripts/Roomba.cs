@@ -8,8 +8,8 @@ using UnityEngine;
 public class Roomba : MonoBehaviour
 {
     public float HP = 100;
-
-    private float SPD = RoombaController.moveSpeed;
+    private RoombaController roombaController;
+    private float SPD;
     [SerializeField]
     private float XP;
     [SerializeField]
@@ -17,8 +17,9 @@ public class Roomba : MonoBehaviour
     [SerializeField]
     private int levelFactor;
     void Start(){
-        print("SPD: " + SPD);
+        roombaController = GetComponent<RoombaController>();
         XP = 0;
+        SPD = roombaController.moveSpeed;
     }
     void Update() {
     }
@@ -35,7 +36,18 @@ public class Roomba : MonoBehaviour
         }
     }
     void mutate() {
-        
+        switch (level) {
+            case 1: 
+                break; 
+            case 2: 
+                break; 
+            case 3: 
+                break; 
+            case 4: 
+                break; 
+            case 5: 
+                break; 
+        }
     }
     public float getXP() {
         return XP;

@@ -7,4 +7,6 @@ public class RoombaStats : MonoBehaviour
     public int health;
     
     public int speed;
+
+    public int exp;
 }

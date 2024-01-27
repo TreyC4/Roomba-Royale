@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Powerups/SpeedBuff")]
-public class Speedbuff : PowerupEffect
+public class Speedbuff : PowerUpEffect
 {
-   public override void Apply(GameObject target);
+   public override void Apply(GameObject target)
    {
     target GetComponent<PlayerSpeed>().speed.value += amount;
    }

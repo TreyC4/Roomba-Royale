@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class NewBehaviorScript : MonoBehaviour
+public class TimerScript : MonoBehaviour
 {
     [SerializeField] private float timeDuration = 3f * 60f;
     
@@ -14,7 +14,6 @@ public class NewBehaviorScript : MonoBehaviour
     private TextMeshProUGUI secondMinute; 
     [SerializeField] 
     private TextMeshProUGUI separator; 
-    
     [SerializeField]
     private TextMeshProUGUI firstSecond; 
     [SerializeField]
@@ -30,6 +29,10 @@ public class NewBehaviorScript : MonoBehaviour
     {
         if (timer >= 0) {
             timer -= Time.deltaTime;
+            UpdateTimer(timer);
+        }
+        else {
+            SetTextDisplay(false);
         }
         print(timer);
     }
@@ -38,7 +41,7 @@ public class NewBehaviorScript : MonoBehaviour
     }
     private void UpdateTimer(float time) {
         float minutes = Mathf.FloorToInt(time / 60); // convert the seconds into minutes 
-        float seconds = Mathf.FloatToHalf(time % 60); // get the remaining seconds that were not converted into minutes 
+        float seconds = Mathf.FloorToInt(time % 60); // get the remaining seconds that were not converted into minutes 
         string currentTime = string.Format("{00:00}{1:00}", minutes, seconds); 
         firstMinute.text = currentTime[0].ToString();
         secondMinute.text = currentTime[1].ToString(); 
@@ -46,6 +49,19 @@ public class NewBehaviorScript : MonoBehaviour
         secondSecond.text = currentTime[3].ToString(); 
     }
     private void SetTextDisplay(bool enabled) {
-        
+        if (enabled) {
+            firstMinute.enabled = true; 
+            secondMinute.enabled = true; 
+            separator.enabled = true; 
+            firstSecond.enabled = true; 
+            secondSecond.enabled = true; 
+        }
+        else {
+            firstMinute.enabled = false; 
+            secondMinute.enabled = false;
+            separator.enabled = false; 
+            firstSecond.enabled = false;
+            secondSecond.enabled = false;
+        }
     }
 }

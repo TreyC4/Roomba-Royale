@@ -9,6 +9,8 @@ public class Roomba : MonoBehaviour
     public float HP = 100;
 
     private float SPD = RoombaController.moveSpeed;
+    
+    private float score = 0;
 
     void Start(){
         print("SPD: " + SPD);
@@ -20,4 +22,8 @@ public class Roomba : MonoBehaviour
         print("HP: " + HP);
     }
 
+    public void gainPoints(float points){
+        score += points;
+        print("Points: " + points);
+    }
 }

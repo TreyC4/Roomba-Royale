@@ -16,9 +16,10 @@ public class Roomba : MonoBehaviour
     private int level; 
     [SerializeField]
     private int levelFactor;
+    [SerializeField] private Canvas Evolve;
     void Start(){
         roombaController = GetComponent<RoombaController>();
-        mutateController = GetComponent<MutateScript>();
+        mutateController = Evolve.GetComponent<MutateScript>();
         XP = 0;
         SPD = roombaController.moveSpeed;
     }
@@ -29,15 +30,15 @@ public class Roomba : MonoBehaviour
         HP -= damageTaken;
         print("HP: " + HP);
     }
-    void eat(float trashValue) {
+    public void eat(float trashValue) {
         XP += trashValue;
         if (XP >= level * levelFactor) {
             level++; 
             XP = 0;
+            Evolve.enabled = true;
             mutateController.mutate(level);
         }
     }
-
     public float getXP() {
         return XP;
     }

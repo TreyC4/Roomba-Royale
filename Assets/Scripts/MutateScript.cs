@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,7 @@ public class MutateScript : MonoBehaviour
     private float speed; 
     private string firstMutation; 
     private string secondMutation;
+    [SerializeField] private Canvas Evolve; 
     // Start is called before the first frame update
     void Start()
     {
@@ -56,9 +58,11 @@ public class MutateScript : MonoBehaviour
         }
     }
     void FirstMutation() {
-        
+        LevelOneMutants(firstMutation);
+        Evolve.enabled = false; 
     }
     void SecondMutation() {
-
+        LevelOneMutants(secondMutation);
+        Evolve.enabled = false; 
     }
 }

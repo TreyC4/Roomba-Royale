@@ -11,6 +11,7 @@ public class Trash : MonoBehaviour
         if(collision.CompareTag("roomba")){
             roomba.gainPoints(points);
             print("got " + points + " points");
+            Destroy(gameObject);
         }
     }
 }

@@ -24,6 +24,6 @@ public class Roomba : MonoBehaviour
 
     public void gainPoints(float points){
         score += points;
-        print("Points: " + points);
+        print("Total Points: " + score);
     }
 }

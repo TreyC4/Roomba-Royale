@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - roomba
+  - trash
+  - obstacle
   layers:
   - Default
   - TransparentFX

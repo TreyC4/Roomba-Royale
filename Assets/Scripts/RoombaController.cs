@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scripts : MonoBehaviour
+public class RoombaController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    public static float moveSpeed = 5f;
     public float rotationSpeed = 200f;
     
     public GameObject innerCircle; 

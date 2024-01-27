@@ -9,6 +9,7 @@ public class Roomba : MonoBehaviour
     public float HP = 100;
 <<<<<<< HEAD
     private RoombaController roombaController;
+    private MutateScript mutateController; 
     private float SPD;
     [SerializeField]
     private float XP;
@@ -18,6 +19,7 @@ public class Roomba : MonoBehaviour
     private int levelFactor;
     void Start(){
         roombaController = GetComponent<RoombaController>();
+        mutateController = GetComponent<MutateScript>();
         XP = 0;
         SPD = roombaController.moveSpeed;
     }
@@ -42,23 +44,10 @@ public class Roomba : MonoBehaviour
         if (XP >= level * levelFactor) {
             level++; 
             XP = 0;
-            mutate();
+            mutateController.mutate(level);
         }
     }
-    void mutate() {
-        switch (level) {
-            case 1: 
-                break; 
-            case 2: 
-                break; 
-            case 3: 
-                break; 
-            case 4: 
-                break; 
-            case 5: 
-                break; 
-        }
-    }
+
     public float getXP() {
         return XP;
     }

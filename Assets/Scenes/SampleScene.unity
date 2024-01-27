@@ -220,6 +220,7 @@ GameObject:
   - component: {fileID: 159996362}
   - component: {fileID: 159996363}
   - component: {fileID: 159996364}
+  - component: {fileID: 159996367}
   m_Layer: 0
   m_Name: TrashCapsule
   m_TagString: trash
@@ -369,6 +370,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &159996367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159996361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b06bd5e6f600d1a4d8cf9deb5cdc5d50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

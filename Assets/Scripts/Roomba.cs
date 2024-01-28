@@ -36,9 +36,6 @@ public class Roomba : MonoBehaviour
     public void eat(int trashValue) {
         XP += trashValue;
         XPCap = level * levelFactor + 1; 
-        print(XP); 
-        print(XPCap);
-        print((float)XP / XPCap);
         xpScript.UpdateXPBar((float)XP / XPCap);
         if (XP >= level * levelFactor) {
             level++; 

@@ -117,8 +117,16 @@ public class TimerScript : MonoBehaviour
 
         while (attempts < maxAttempts)
         {
-            Vector3 randomPosition = new Vector3(Random.Range(cameraBounds.min.x + mainCamera.orthographicSize, cameraBounds.max.x + mainCamera.orthographicSize),
-                                                Random.Range(cameraBounds.min.y + mainCamera.orthographicSize, cameraBounds.max.y + mainCamera.orthographicSize),
+            int randomInt = Random.Range(0, 1); 
+            int randomOffset = 0; 
+            if (randomInt == 1) {
+                randomOffset = -2;
+            }
+            else if (randomInt == 0) {
+                randomOffset = 2;
+            }
+            Vector3 randomPosition = new Vector3(Random.Range(cameraBounds.min.x + mainCamera.orthographicSize * randomOffset, cameraBounds.max.x + mainCamera.orthographicSize * randomOffset),
+                                                Random.Range(cameraBounds.min.y + mainCamera.orthographicSize *randomOffset, cameraBounds.max.y + mainCamera.orthographicSize * randomOffset),
                                                 0);
 
             if (!IsPositionObstructed(randomPosition))

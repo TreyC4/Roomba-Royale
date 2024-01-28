@@ -22,7 +22,7 @@ public class TimerScript : MonoBehaviour
     [SerializeField]
     private GameObject obstacleTemplate; 
     public Sprite[] spriteCollection; 
-    private int spawnInterval = 5; 
+    private int spawnInterval = 1; 
     
     private Camera mainCamera; 
     private Bounds cameraBounds; 
@@ -80,6 +80,7 @@ public class TimerScript : MonoBehaviour
     {
         while (true)
         {
+            cameraBounds = CalculateCameraBounds();
             yield return new WaitForSeconds(spawnInterval);
 
             // Calculate random positions outside the camera's FOV
@@ -116,8 +117,16 @@ public class TimerScript : MonoBehaviour
 
         while (attempts < maxAttempts)
         {
-            Vector3 randomPosition = new Vector3(Random.Range(cameraBounds.min.x, cameraBounds.max.x),
-                                                Random.Range(cameraBounds.min.y, cameraBounds.max.y),
+            int randomInt = Random.Range(0, 1); 
+            int randomOffset = 0; 
+            if (randomInt == 1) {
+                randomOffset = -2;
+            }
+            else if (randomInt == 0) {
+                randomOffset = 2;
+            }
+            Vector3 randomPosition = new Vector3(Random.Range(cameraBounds.min.x + mainCamera.orthographicSize * randomOffset, cameraBounds.max.x + mainCamera.orthographicSize * randomOffset),
+                                                Random.Range(cameraBounds.min.y + mainCamera.orthographicSize *randomOffset, cameraBounds.max.y + mainCamera.orthographicSize * randomOffset),
                                                 0);
 
             if (!IsPositionObstructed(randomPosition))

@@ -837,7 +837,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Go To Main Menu
+  m_text: 'Main Menu
 
 '
   m_isRightToLeft: 0

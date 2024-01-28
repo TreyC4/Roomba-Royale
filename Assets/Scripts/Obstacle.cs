@@ -5,10 +5,13 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     [SerializeField] private Roomba roomba;
-
+    
     private float damageTaken = 5;
-    private void OnTriggerEnter2D(Collider2D collision){
-        if (collision.CompareTag("roomba")) {
+    
+    void Start() {
+    }
+    private void OnCollisionEnter2D(Collision2D other){
+        if (other.gameObject.CompareTag("roomba")) {
             roomba.takeDamage(damageTaken);
             print("hit");
         }

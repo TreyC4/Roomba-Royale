@@ -19,6 +19,9 @@ public class TimerScript : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI secondSecond;
     // Start is called before the first frame update
+    [SerializeField]
+    private GameObject obstacleTemplate; 
+    public Sprite[] spriteCollection; 
     void Start()
     {
         timer = timeDuration;
@@ -30,11 +33,13 @@ public class TimerScript : MonoBehaviour
         if (timer >= 0) {
             timer -= Time.deltaTime;
             UpdateTimer(timer);
+            if (((int)timer) % 5 == 0) {
+                spawnTrash();
+            }
         }
         else {
             SetTextDisplay(false);
         }
-        print(timer);
     }
     void resetTimer() {
         timer = timeDuration;
@@ -62,6 +67,15 @@ public class TimerScript : MonoBehaviour
             separator.enabled = false; 
             firstSecond.enabled = false;
             secondSecond.enabled = false;
+        }
+    }
+    private void spawnTrash() {
+        Sprite randomSprite = spriteCollection[Random.Range(0, spriteCollection.Length)];
+        GameObject trash = Instantiate(obstacleTemplate, new Vector3(0, 0, 0), Quaternion.identity);
+        SpriteRenderer spriteRenderer = trash.GetComponent<SpriteRenderer>(); 
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sprite = randomSprite;
         }
     }
 }

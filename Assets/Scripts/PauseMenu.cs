@@ -44,7 +44,7 @@ public class PauseMenu : MonoBehaviour
     public void GoToMainMenu(){
         Time.timeScale = 1f;
         //Replace ("MainMenu") with name of main menu scene
-        SceneManager.LoadScence("MainMenu");
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame(){

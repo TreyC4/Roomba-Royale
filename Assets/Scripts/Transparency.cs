@@ -21,7 +21,7 @@ public class Transparency : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.CompareTag("roomba")) {
             tempColor = table.GetComponent<Renderer>().material.GetColor("_Color");
-            table.GetComponent<Renderer>().material.SetColor("_Color", new Color(0, 0, 0, 0.4f));
+            table.GetComponent<Renderer>().material.SetColor("_Color", tempColor * new Color(1, 1, 1, .4f));
         }
     }
     private void OnTriggerExit2D(Collider2D other) {

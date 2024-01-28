@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TrashBehavior : MonoBehaviour
 {
-    [SerializeField] private float trashValue;
+    [SerializeField] private int trashValue;
 
     [SerializeField] private Roomba roomba; 
     // Start is called before the first frame update

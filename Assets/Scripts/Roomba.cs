@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Roomba : MonoBehaviour
 {
@@ -32,6 +33,10 @@ public class Roomba : MonoBehaviour
     public void takeDamage(float damageTaken){
         HP -= damageTaken;
         print("HP: " + HP);
+        if (HP <= 0) {
+            SceneManager.LoadScene("GameEnd"); 
+            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        }
     }
     public void eat(int trashValue) {
         XP += trashValue;

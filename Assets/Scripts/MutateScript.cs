@@ -21,8 +21,9 @@ public class MutateScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        roombaController = GetComponent<RoombaController>();
-        roomba = GetComponent<Roomba>();
+        roombaController = GameObject.Find("roombap1").GetComponent<RoombaController>();
+        roomba = GameObject.Find("roombap1").GetComponent<Roomba>();
+        Evolve.enabled = false;
     }
 
     // Update is called once per frame
@@ -32,7 +33,8 @@ public class MutateScript : MonoBehaviour
     }
     void LevelOneMutants(string mutation) {
         if (mutation == "MoveSpeed") {
-            roombaController.setSpeed(speed);
+            roombaController.setSpeed(speed + 1f * 3f);
+            Debug.Log("mutated speed");
         }
         else if (mutation == "MoreHealth") {
             roomba.HP = 1000; 
@@ -40,12 +42,15 @@ public class MutateScript : MonoBehaviour
     }
     public void mutate(int mutateLevel) {
         level = mutateLevel;
+        Evolve.enabled = true;
+        firstMutation = "";
+        secondMutation = "";
         firstButton.enabled = true;
         secondButton.enabled = true;
         switch (level) {
             case 1: 
-                firstMutation = "MoveSpeed"; 
-                secondMutation = "MoreHealth";
+                firstMutation += "MoveSpeed"; 
+                secondMutation += "MoreHealth";
                 break; 
             case 2: 
                 break; 
@@ -57,12 +62,14 @@ public class MutateScript : MonoBehaviour
                 break; 
         }
     }
-    void FirstMutation() {
+    public void FirstMutation() {
         LevelOneMutants(firstMutation);
-        Evolve.enabled = false; 
+        firstButton.enabled = false; 
+        Evolve.enabled = false;
     }
-    void SecondMutation() {
+    public void SecondMutation() {
         LevelOneMutants(secondMutation);
-        Evolve.enabled = false; 
+        secondButton.enabled = false; 
+        Evolve.enabled = false;
     }
 }

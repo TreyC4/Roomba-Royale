@@ -22,9 +22,17 @@ public class TimerScript : MonoBehaviour
     [SerializeField]
     private GameObject obstacleTemplate; 
     public Sprite[] spriteCollection; 
+    private int spawnInterval = 5; 
+    
+    private Camera mainCamera; 
+    private Bounds cameraBounds; 
     void Start()
     {
+        mainCamera = Camera.main;
+
+        cameraBounds = CalculateCameraBounds();
         timer = timeDuration;
+        StartCoroutine(spawnTrash());
     }
 
     // Update is called once per frame
@@ -32,10 +40,9 @@ public class TimerScript : MonoBehaviour
     {
         if (timer >= 0) {
             timer -= Time.deltaTime;
+            
             UpdateTimer(timer);
-            if (((int)timer) % 5 == 0) {
-                spawnTrash();
-            }
+            
         }
         else {
             SetTextDisplay(false);
@@ -69,13 +76,68 @@ public class TimerScript : MonoBehaviour
             secondSecond.enabled = false;
         }
     }
-    private void spawnTrash() {
-        Sprite randomSprite = spriteCollection[Random.Range(0, spriteCollection.Length)];
-        GameObject trash = Instantiate(obstacleTemplate, new Vector3(0, 0, 0), Quaternion.identity);
-        SpriteRenderer spriteRenderer = trash.GetComponent<SpriteRenderer>(); 
-        if (spriteRenderer != null)
+        IEnumerator spawnTrash()
+    {
+        while (true)
         {
-            spriteRenderer.sprite = randomSprite;
+            yield return new WaitForSeconds(spawnInterval);
+
+            // Calculate random positions outside the camera's FOV
+            Vector3 spawnPosition1 = GetValidSpawnPosition();
+            Vector3 spawnPosition2 = GetValidSpawnPosition();
+
+            if (spawnPosition1 != Vector3.zero && spawnPosition2 != Vector3.zero)
+            {
+                // Instantiate trash objects at calculated positions
+                GameObject trash1 = Instantiate(obstacleTemplate, spawnPosition1, Quaternion.identity);
+                GameObject trash2 = Instantiate(obstacleTemplate, spawnPosition2, Quaternion.identity);
+
+                // Set random sprites to trash objects
+                Sprite randomSprite1 = spriteCollection[Random.Range(0, spriteCollection.Length)];
+                Sprite randomSprite2 = spriteCollection[Random.Range(0, spriteCollection.Length)];
+                trash1.GetComponent<SpriteRenderer>().sprite = randomSprite1;
+                trash2.GetComponent<SpriteRenderer>().sprite = randomSprite2;
+            }
         }
     }
+
+    Bounds CalculateCameraBounds()
+    {
+        float screenAspect = (float)Screen.width / Screen.height;
+        float cameraHeight = mainCamera.orthographicSize * 2f;
+        Bounds bounds = new Bounds(mainCamera.transform.position, new Vector3(cameraHeight * screenAspect, cameraHeight, 0));
+        return bounds;
+    }
+    Vector3 GetValidSpawnPosition()
+    {
+        int maxAttempts = 10;
+        int attempts = 0;
+        Vector3 spawnPosition = Vector3.zero;
+
+        while (attempts < maxAttempts)
+        {
+            Vector3 randomPosition = new Vector3(Random.Range(cameraBounds.min.x, cameraBounds.max.x),
+                                                Random.Range(cameraBounds.min.y, cameraBounds.max.y),
+                                                0);
+
+            if (!IsPositionObstructed(randomPosition))
+            {
+                spawnPosition = randomPosition;
+                break;
+            }
+
+            attempts++;
+        }
+
+        return spawnPosition;
+    }
+
+
+    bool IsPositionObstructed(Vector3 position)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(position, Vector2.zero);
+        return hit.collider != null;
+    }
+
 }
+    

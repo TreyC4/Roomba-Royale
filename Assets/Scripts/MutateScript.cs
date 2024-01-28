@@ -23,6 +23,7 @@ public class MutateScript : MonoBehaviour
     {
         roombaController = GetComponent<RoombaController>();
         roomba = GetComponent<Roomba>();
+        Evolve.enabled = false;
     }
 
     // Update is called once per frame
@@ -40,6 +41,7 @@ public class MutateScript : MonoBehaviour
     }
     public void mutate(int mutateLevel) {
         level = mutateLevel;
+        Evolve.enabled = true;
         firstButton.enabled = true;
         secondButton.enabled = true;
         switch (level) {
@@ -57,12 +59,14 @@ public class MutateScript : MonoBehaviour
                 break; 
         }
     }
-    void FirstMutation() {
+    public void FirstMutation() {
         LevelOneMutants(firstMutation);
-        Evolve.enabled = false; 
+        firstButton.enabled = false; 
+        Evolve.enabled = false;
     }
-    void SecondMutation() {
+    public void SecondMutation() {
         LevelOneMutants(secondMutation);
-        Evolve.enabled = false; 
+        secondButton.enabled = false; 
+        Evolve.enabled = false;
     }
 }

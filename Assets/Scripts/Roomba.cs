@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -25,5 +26,12 @@ public class Roomba : MonoBehaviour
     public void gainPoints(float points){
         score += points;
         print("Total Points: " + score);
+
+    }
+
+    public void gameOver(float HP){
+        if(HP <= 0){
+            //code for game over screen
+        }
     }
 }

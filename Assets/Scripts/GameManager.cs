@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using LootLocker.Requests;
-using UnityEngine.UI;
-using LootLocker; 
+
 using TMPro;
 namespace LootLocker {
 public class GuestLoginLootLockerIdentifier : MonoBehaviour

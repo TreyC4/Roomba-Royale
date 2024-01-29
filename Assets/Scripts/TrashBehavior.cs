@@ -25,14 +25,14 @@ public class TrashBehavior : MonoBehaviour
             Destroy(gameObject);
         }
         else if (other.gameObject.CompareTag("roomba") && gameObject.tag == "hooman") {
-            if (roomba.getLevel() > 2) {
+            if (roomba.getLevel() > 3) {
                 roomba.eat(10);
                 Destroy(gameObject);
             }
             
         }
         else if (other.gameObject.CompareTag("roomba") && gameObject.tag == "furniture") {
-            if (roomba.getLevel() > 3) {
+            if (roomba.getLevel() > 4) {
                 roomba.eat(40);
                 Destroy(gameObject);
             }

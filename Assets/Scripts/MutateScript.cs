@@ -41,7 +41,7 @@ public class MutateScript : MonoBehaviour
     }
     void LevelOneMutants(string mutation) {
         if (mutation == "MoveSpeed") {
-            roombaController.setSpeed(speed + 1f * 3f);
+            roombaController.setSpeed(speed + 1f * 1.5f);
             Debug.Log("mutated speed");
         }
         else if (mutation == "MoreHealth") {
@@ -64,8 +64,17 @@ public class MutateScript : MonoBehaviour
         }
         roombaModel.GetComponent<SpriteRenderer>().sprite = roombaSprites[1];
     }
-    void LevelThreeMutants() {
+    void LevelThreeMutants(string mutation) {
+        
        roombaModel.GetComponent<SpriteRenderer>().sprite = roombaSprites[2]; 
+       
+       
+       if (mutation == "MoveSpeed") {
+        roombaController.setSpeed(speed + 1f * 3f);
+       }
+       else if (mutation == "MoreHealth") {
+        roomba.HP = 1000; 
+       }
     }
     public void mutate(int mutateLevel) {
         level = mutateLevel;
@@ -95,6 +104,10 @@ public class MutateScript : MonoBehaviour
            case 3: 
              LevelTwoMutants(firstMutation); 
             break;
+           case 4: 
+            LevelThreeMutants("MoveSpeed");
+             break;
+
         }
         
         firstButton.enabled = false; 
@@ -107,6 +120,9 @@ public class MutateScript : MonoBehaviour
              break; 
             case 3: 
               LevelTwoMutants(secondMutation);
+             break;
+            case 4:
+              LevelThreeMutants("MoreHealth");
              break;
         }
         

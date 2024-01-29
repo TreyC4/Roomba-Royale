@@ -76,13 +76,13 @@ public class RoombaController : MonoBehaviour
             timer += Time.deltaTime;
         }
         
-        if (timer > .1f) {
+        if (timer > .4f) {
             dashed = false;
+            extended = false;
             tongue.SetActive(false);
             timer = 0;
         }
         
-        tongue.transform.localPosition = transform.localPosition; 
     
     }
     public void setSpeed(float speed) {

@@ -20,7 +20,7 @@ public class Obstacle : MonoBehaviour
     }
     void Update() {
         if (collided) {
-            roomba.transform.position = Vector2.Lerp(new Vector2(roomba.transform.position.x, roomba.transform.position.y - .1f), roomba.transform.position, .4f);
+            roomba.transform.position = Vector2.Lerp(new Vector2(roomba.transform.position.x, roomba.transform.position.y - .01f), roomba.transform.position, .4f);
             timer += Time.deltaTime; 
         }
         if (timer > .1f) {

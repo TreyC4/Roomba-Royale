@@ -39,9 +39,19 @@ public class Roomba : MonoBehaviour
         }
     }
     public void eat(int trashValue) {
-        XP += trashValue;
-        XPCap = level * levelFactor; 
-        xpScript.UpdateXPBar((float)XP / XPCap);
+        if (XP + trashValue > XPCap) {
+            xpScript.UpdateXPBar((float)XP / XPCap);
+            XP = XPCap - XP + trashValue;
+            level++; 
+            Evolve.enabled = true;
+            mutateController.mutate(level);
+        }
+        else {
+            XP += trashValue;
+            XPCap = level * levelFactor; 
+            xpScript.UpdateXPBar((float)XP / XPCap);
+        }
+        
         if (XP >= level * levelFactor) {
             level++; 
             XP = 0;

@@ -45,7 +45,7 @@ public class MutateScript : MonoBehaviour
             Debug.Log("mutated speed");
         }
         else if (mutation == "MoreHealth") {
-            roomba.HP = 1000; 
+            roomba.HP = 400; 
         }
         roombaModel.GetComponent<SpriteRenderer>().sprite = roombaSprites[0];
         roombaArm1.GetComponent<SpriteRenderer>().enabled = true;
@@ -62,6 +62,10 @@ public class MutateScript : MonoBehaviour
         else if (mutation == "Extend") {
             roombaController.upgradeExtend();
         }
+        roombaModel.GetComponent<SpriteRenderer>().sprite = roombaSprites[1];
+    }
+    void LevelThreeMutants() {
+       roombaModel.GetComponent<SpriteRenderer>().sprite = roombaSprites[2]; 
     }
     public void mutate(int mutateLevel) {
         level = mutateLevel;
@@ -98,10 +102,10 @@ public class MutateScript : MonoBehaviour
     }
     public void SecondMutation() {
         switch(level) {
-            case 1: 
+            case 2: 
               LevelOneMutants(secondMutation);
              break; 
-            case 2: 
+            case 3: 
               LevelTwoMutants(secondMutation);
              break;
         }

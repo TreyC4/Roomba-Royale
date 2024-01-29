@@ -1,68 +1,83 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using TMPro; 
+using System;
+using System.Collections.Generic;
+using TMPro;
 
-public class LeaderboardScript : MonoBehaviour
+public class OfflineLeaderboard : MonoBehaviour
 {
     public TextMeshProUGUI leaderboardText;
 
-    private List<ScoreEntry> scores = new List<ScoreEntry>();
-    private const int maxEntries = 10; // Maximum number of entries in the leaderboard
+    public const int maxScores = 10;
+    private List<ScoreEntry> scoreEntries;
 
-    private void Start()
+    [Serializable]
+    public class ScoreEntry
     {
-        LoadScores();
+        public string playerName;
+        public int score;
+
+        public ScoreEntry(string name, int score)
+        {
+            playerName = name;
+            this.score = score;
+        }
+    }
+
+    void Start()
+    {
+        // Initialize the list from PlayerPrefs
+        LoadLeaderboard();
         UpdateLeaderboardUI();
+    }
+
+    void LoadLeaderboard()
+    {
+        scoreEntries = new List<ScoreEntry>();
+
+        for (int i = 0; i < maxScores; i++)
+        {
+            string playerName = PlayerPrefs.GetString("PlayerName" + i, "Player");
+            int score = PlayerPrefs.GetInt("Score" + i, 0);
+            scoreEntries.Add(new ScoreEntry(playerName, score));
+        }
+
+        // Sort the leaderboard by score
+        scoreEntries.Sort((x, y) => y.score.CompareTo(x.score));
+    }
+
+    void UpdateLeaderboardUI()
+    {
+        leaderboardText.text = "Leaderboard:\n";
+
+        for (int i = 0; i < scoreEntries.Count; i++)
+        {
+            leaderboardText.text += $"{i + 1}. {scoreEntries[i].playerName}: {scoreEntries[i].score}\n";
+        }
     }
 
     public void AddScore(string playerName, int score)
     {
-        ScoreEntry newScore = new ScoreEntry
-        {
-            playerName = playerName,
-            score = score
-        };
-        scores.Add(newScore);
-        scores.Sort((x, y) => y.score.CompareTo(x.score)); // Sort scores in descending order
+        // Add the new score
+        scoreEntries.Add(new ScoreEntry(playerName, score));
 
-        if (scores.Count > maxEntries)
+        // Sort the leaderboard by score
+        scoreEntries.Sort((x, y) => y.score.CompareTo(x.score));
+
+        // Truncate to the maximum number of scores
+        if (scoreEntries.Count > maxScores)
         {
-            scores.RemoveAt(scores.Count - 1); // Remove the last entry if more than maxEntries
+            scoreEntries.RemoveAt(scoreEntries.Count - 1);
         }
 
-        SaveScores();
+        // Update PlayerPrefs
+        for (int i = 0; i < scoreEntries.Count; i++)
+        {
+            PlayerPrefs.SetString("PlayerName" + i, scoreEntries[i].playerName);
+            PlayerPrefs.SetInt("Score" + i, scoreEntries[i].score);
+        }
+
+        // Update UI
         UpdateLeaderboardUI();
-    }
-
-    private void UpdateLeaderboardUI()
-    {
-        leaderboardText.text = "Leaderboard:\n";
-
-        for (int i = 0; i < scores.Count; i++)
-        {
-            leaderboardText.text += (i + 1) + ". " + scores[i].playerName + " - " + scores[i].score + "\n";
-        }
-    }
-
-    private void SaveScores()
-    {
-        BinaryFormatter formatter = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/leaderboard.dat");
-        formatter.Serialize(file, scores);
-        file.Close();
-    }
-
-    private void LoadScores()
-    {
-        if (File.Exists(Application.persistentDataPath + "/leaderboard.dat"))
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/leaderboard.dat", FileMode.Open);
-            scores = (List<ScoreEntry>)formatter.Deserialize(file);
-            file.Close();
-        }
     }
 }

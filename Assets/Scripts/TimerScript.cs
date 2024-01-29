@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 public class TimerScript : MonoBehaviour
@@ -103,6 +105,7 @@ public class TimerScript : MonoBehaviour
                 // Set random sprites to trash objects
                 Sprite randomSprite1 = spriteCollection[Random.Range(0, spriteCollection.Length)];
                 Sprite randomSprite2 = spriteCollection[Random.Range(0, spriteCollection.Length)];
+                
                 trash1.GetComponent<SpriteRenderer>().sprite = randomSprite1;
                 trash2.GetComponent<SpriteRenderer>().sprite = randomSprite2;
             }

@@ -20,7 +20,7 @@ public class TrashBehavior : MonoBehaviour
         
     }
     private void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.CompareTag("roomba") && gameObject.tag != "hooman") {
+        if (other.gameObject.CompareTag("roomba") && gameObject.tag != "hooman" && gameObject.tag != "furniture") {
             roomba.eat(trashValue);
             Destroy(gameObject);
         }

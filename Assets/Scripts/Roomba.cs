@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Roomba : MonoBehaviour
 {
@@ -20,9 +21,13 @@ public class Roomba : MonoBehaviour
     private int levelFactor;
     [SerializeField] private Canvas Evolve;
           private int XPCap;
+    private LeaderboardScript leaderboard; 
+    private int score; 
+
     void Start(){
         roombaController = GetComponent<RoombaController>();
         mutateController = Evolve.GetComponent<MutateScript>();
+        leaderboard = GetComponent<LeaderboardScript>();
         xpScript = GameObject.Find("XP").GetComponent<XPScript>();
         XP = 0;
         SPD = roombaController.moveSpeed;
@@ -34,12 +39,14 @@ public class Roomba : MonoBehaviour
         HP -= damageTaken;
         print("HP: " + HP);
         if (HP <= 0) {
+            leaderboard.AddScore("Player 1", score);
             SceneManager.LoadScene("GameEnd"); 
             SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         }
     }
     public void eat(int trashValue) {
         XPCap = level * levelFactor; 
+        score += trashValue; 
         if (XP + trashValue > XPCap) {
             xpScript.UpdateXPBar((float)XP / XPCap);
             XP = 0;

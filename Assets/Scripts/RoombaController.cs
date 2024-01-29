@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,6 +18,10 @@ public class RoombaController : MonoBehaviour
     private bool dashed = false; 
 
     private float timer; 
+    private bool extendUpgrade = false; 
+    private bool extended = false;
+    [SerializeField] private GameObject tongue; 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +38,10 @@ public class RoombaController : MonoBehaviour
         Vector3 moveDirection = new Vector2(0, verticalInput);
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
         
-        innerCircle.transform.localPosition = transform.localPosition;  
+        if (innerCircle != null) {
+            innerCircle.transform.localPosition = transform.localPosition;  
+        }
+        
         // Rotate the circle based on horizontal input
         if (horizontalInput != 0)
         {
@@ -49,7 +57,12 @@ public class RoombaController : MonoBehaviour
                 dashed = true;
                 
                 timer += Time.deltaTime;
-        }
+                 }
+            else if (extendUpgrade & !extended) {
+                tongue.SetActive(true);
+                extended = true;
+            }
+       
             
         }
         if (dashed) {
@@ -59,11 +72,17 @@ public class RoombaController : MonoBehaviour
             timer += Time.deltaTime;
             transform.position = Vector2.Lerp(new Vector2(transform.position.x, transform.position.y) + dashDirection * new Vector2(0, .1f), transform.position, .4f); 
         }
+        if (extended) {
+            timer += Time.deltaTime;
+        }
         
         if (timer > .1f) {
             dashed = false;
+            tongue.SetActive(false);
             timer = 0;
         }
+        
+        tongue.transform.localPosition = transform.localPosition; 
     
     }
     public void setSpeed(float speed) {
@@ -84,5 +103,9 @@ public class RoombaController : MonoBehaviour
     }
     public void upgradeDash() {
         dashUpgrade = true;
+    }
+    public void upgradeExtend() {
+        extendUpgrade = true;
+        transform.GetChild(4).GetComponent<SpriteRenderer>().enabled = true; 
     }
 }

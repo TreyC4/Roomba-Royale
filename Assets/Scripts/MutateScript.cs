@@ -50,6 +50,7 @@ public class MutateScript : MonoBehaviour
         roombaModel.GetComponent<SpriteRenderer>().sprite = roombaSprites[0];
         roombaArm1.GetComponent<SpriteRenderer>().enabled = true;
         roombaArm2.GetComponent<SpriteRenderer>().enabled = true;
+        Destroy(GameObject.Find("face"));
         {
             
         }
@@ -57,6 +58,9 @@ public class MutateScript : MonoBehaviour
     void LevelTwoMutants(string mutation) {
         if (mutation == "Dash") {
             roombaController.upgradeDash();
+        }
+        else if (mutation == "Extend") {
+            roombaController.upgradeExtend();
         }
     }
     public void mutate(int mutateLevel) {
@@ -67,28 +71,24 @@ public class MutateScript : MonoBehaviour
         firstButton.enabled = true;
         secondButton.enabled = true;
         switch (level) {
-            case 1: 
+            case 2: 
                 firstMutation += "MoveSpeed"; 
                 secondMutation += "MoreHealth";
                 break; 
-            case 2: 
+            case 3: 
                 firstMutation += "Dash"; 
                 secondMutation += "Extend";
                 break; 
-            case 3: 
-                break; 
             case 4: 
-                break; 
-            case 5: 
                 break; 
         }
     }
     public void FirstMutation() {
         switch (level) {
-           case 1: 
+           case 2: 
              LevelOneMutants(firstMutation);
             break;  
-           case 2: 
+           case 3: 
              LevelTwoMutants(firstMutation); 
             break;
         }

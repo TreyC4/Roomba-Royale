@@ -103,9 +103,10 @@ public class TimerScript : MonoBehaviour
                     GameObject guy = Instantiate(hooman[spawnRate], spawnPosition1, Quaternion.identity);
                 }
                 // Set random sprites to trash objects
-                Sprite randomSprite1 = spriteCollection[Random.Range(0, spriteCollection.Length)];
-                Sprite randomSprite2 = spriteCollection[Random.Range(0, spriteCollection.Length)];
-                
+                int randomIndex1 = Random.Range(0, spriteCollection.Length);
+                int randomIndex2 = Random.Range(0, spriteCollection.Length); 
+                Sprite randomSprite1 = spriteCollection[randomIndex1];
+                Sprite randomSprite2 = spriteCollection[randomIndex2];
                 trash1.GetComponent<SpriteRenderer>().sprite = randomSprite1;
                 trash2.GetComponent<SpriteRenderer>().sprite = randomSprite2;
             }

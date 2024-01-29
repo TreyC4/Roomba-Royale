@@ -28,8 +28,6 @@ public class MutateScript : MonoBehaviour
     {
         roombaController = GameObject.Find("roombap1").GetComponent<RoombaController>();
         roombaModel = GameObject.Find("roombap1");
-        roombaArm1 = roombaModel.transform.GetChild(2).gameObject;
-        roombaArm2 = roombaModel.transform.GetChild(3).gameObject; 
         roomba = roombaModel.GetComponent<Roomba>();
         Evolve.enabled = false;
     }
@@ -41,15 +39,14 @@ public class MutateScript : MonoBehaviour
     }
     void LevelOneMutants(string mutation) {
         if (mutation == "MoveSpeed") {
-            roombaController.setSpeed(speed + 1f * 3f);
+            roombaController.setSpeed(speed + 1f * 1.5f);
             Debug.Log("mutated speed");
         }
         else if (mutation == "MoreHealth") {
-            roomba.HP = 1000; 
+            roomba.HP = 400; 
         }
         roombaModel.GetComponent<SpriteRenderer>().sprite = roombaSprites[0];
-        roombaArm1.GetComponent<SpriteRenderer>().enabled = true;
-        roombaArm2.GetComponent<SpriteRenderer>().enabled = true;
+        Destroy(GameObject.Find("face"));
         {
             
         }
@@ -58,6 +55,22 @@ public class MutateScript : MonoBehaviour
         if (mutation == "Dash") {
             roombaController.upgradeDash();
         }
+        else if (mutation == "Extend") {
+            roombaController.upgradeExtend();
+        }
+        roombaModel.GetComponent<SpriteRenderer>().sprite = roombaSprites[1];
+    }
+    void LevelThreeMutants(string mutation) {
+        
+       roombaModel.GetComponent<SpriteRenderer>().sprite = roombaSprites[2]; 
+       
+       
+       if (mutation == "MoveSpeed") {
+        roombaController.setSpeed(speed + 1f * 3f);
+       }
+       else if (mutation == "MoreHealth") {
+        roomba.HP = 1000; 
+       }
     }
     public void mutate(int mutateLevel) {
         level = mutateLevel;
@@ -67,30 +80,30 @@ public class MutateScript : MonoBehaviour
         firstButton.enabled = true;
         secondButton.enabled = true;
         switch (level) {
-            case 1: 
+            case 2: 
                 firstMutation += "MoveSpeed"; 
                 secondMutation += "MoreHealth";
                 break; 
-            case 2: 
+            case 3: 
                 firstMutation += "Dash"; 
                 secondMutation += "Extend";
                 break; 
-            case 3: 
-                break; 
             case 4: 
-                break; 
-            case 5: 
                 break; 
         }
     }
     public void FirstMutation() {
         switch (level) {
-           case 1: 
+           case 2: 
              LevelOneMutants(firstMutation);
             break;  
-           case 2: 
+           case 3: 
              LevelTwoMutants(firstMutation); 
             break;
+           case 4: 
+            LevelThreeMutants("MoveSpeed");
+             break;
+
         }
         
         firstButton.enabled = false; 
@@ -98,11 +111,14 @@ public class MutateScript : MonoBehaviour
     }
     public void SecondMutation() {
         switch(level) {
-            case 1: 
+            case 2: 
               LevelOneMutants(secondMutation);
              break; 
-            case 2: 
+            case 3: 
               LevelTwoMutants(secondMutation);
+             break;
+            case 4:
+              LevelThreeMutants("MoreHealth");
              break;
         }
         

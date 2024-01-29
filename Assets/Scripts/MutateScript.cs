@@ -28,8 +28,6 @@ public class MutateScript : MonoBehaviour
     {
         roombaController = GameObject.Find("roombap1").GetComponent<RoombaController>();
         roombaModel = GameObject.Find("roombap1");
-        roombaArm1 = roombaModel.transform.GetChild(2).gameObject;
-        roombaArm2 = roombaModel.transform.GetChild(3).gameObject; 
         roomba = roombaModel.GetComponent<Roomba>();
         Evolve.enabled = false;
     }
@@ -48,8 +46,6 @@ public class MutateScript : MonoBehaviour
             roomba.HP = 400; 
         }
         roombaModel.GetComponent<SpriteRenderer>().sprite = roombaSprites[0];
-        roombaArm1.GetComponent<SpriteRenderer>().enabled = true;
-        roombaArm2.GetComponent<SpriteRenderer>().enabled = true;
         Destroy(GameObject.Find("face"));
         {
             

@@ -54,6 +54,11 @@ public class MutateScript : MonoBehaviour
             
         }
     }
+    void LevelTwoMutants(string mutation) {
+        if (mutation == "Dash") {
+            roombaController.upgradeDash();
+        }
+    }
     public void mutate(int mutateLevel) {
         level = mutateLevel;
         Evolve.enabled = true;
@@ -67,6 +72,8 @@ public class MutateScript : MonoBehaviour
                 secondMutation += "MoreHealth";
                 break; 
             case 2: 
+                firstMutation += "Dash"; 
+                secondMutation += "Extend";
                 break; 
             case 3: 
                 break; 
@@ -81,6 +88,9 @@ public class MutateScript : MonoBehaviour
            case 1: 
              LevelOneMutants(firstMutation);
             break;  
+           case 2: 
+             LevelTwoMutants(firstMutation); 
+            break;
         }
         
         firstButton.enabled = false; 
@@ -91,6 +101,9 @@ public class MutateScript : MonoBehaviour
             case 1: 
               LevelOneMutants(secondMutation);
              break; 
+            case 2: 
+              LevelTwoMutants(secondMutation);
+             break;
         }
         
         secondButton.enabled = false; 

@@ -78,5 +78,8 @@ public class Roomba : MonoBehaviour
     public float getLevel() {
         return level;
     }
+    public float getScore() {
+        return score;
+    }
 
 }

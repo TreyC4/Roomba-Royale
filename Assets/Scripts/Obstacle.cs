@@ -9,17 +9,35 @@ public class Obstacle : MonoBehaviour
     
     private float damageTaken = 5;
     
+    private Color tempColor; 
+    
+    private bool collided; 
+
+    private float timer; 
     void Start() {
         roomba = GameObject.Find("roombap1").GetComponent<Roomba>();
+        tempColor = roomba.GetComponent<Renderer>().material.GetColor("_Color");
     }
     void Update() {
-
+        if (collided) {
+            roomba.transform.position = Vector2.Lerp(new Vector2(roomba.transform.position.x, roomba.transform.position.y - .06f), roomba.transform.position, .6f);
+            timer += Time.deltaTime; 
+        }
+        if (timer > .1f) {
+            collided = false; 
+            timer = 0;
+        }
     }
     private void OnCollisionEnter2D(Collision2D other){
         if (other.gameObject.CompareTag("roomba")) {
-            other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -1));
+            collided = true;
+            
+            other.gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
             roomba.takeDamage(damageTaken);
             print("hit");
         }
+    } 
+    private void OnCollisionExit2D(Collision2D other) {
+        other.gameObject.GetComponent<Renderer>().material.SetColor("_Color", tempColor); 
     }
 }

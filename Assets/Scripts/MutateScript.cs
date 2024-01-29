@@ -17,12 +17,20 @@ public class MutateScript : MonoBehaviour
     private float speed; 
     private string firstMutation; 
     private string secondMutation;
+    private GameObject roombaModel;
     [SerializeField] private Canvas Evolve; 
+    public Sprite[] roombaSprites; 
+
+    private GameObject roombaArm1; 
+    private GameObject roombaArm2; 
     // Start is called before the first frame update
     void Start()
     {
         roombaController = GameObject.Find("roombap1").GetComponent<RoombaController>();
-        roomba = GameObject.Find("roombap1").GetComponent<Roomba>();
+        roombaModel = GameObject.Find("roombap1");
+        roombaArm1 = roombaModel.transform.GetChild(2).gameObject;
+        roombaArm2 = roombaModel.transform.GetChild(3).gameObject; 
+        roomba = roombaModel.GetComponent<Roomba>();
         Evolve.enabled = false;
     }
 
@@ -39,6 +47,17 @@ public class MutateScript : MonoBehaviour
         else if (mutation == "MoreHealth") {
             roomba.HP = 1000; 
         }
+        roombaModel.GetComponent<SpriteRenderer>().sprite = roombaSprites[0];
+        roombaArm1.GetComponent<SpriteRenderer>().enabled = true;
+        roombaArm2.GetComponent<SpriteRenderer>().enabled = true;
+        {
+            
+        }
+    }
+    void LevelTwoMutants(string mutation) {
+        if (mutation == "Dash") {
+            roombaController.upgradeDash();
+        }
     }
     public void mutate(int mutateLevel) {
         level = mutateLevel;
@@ -53,6 +72,8 @@ public class MutateScript : MonoBehaviour
                 secondMutation += "MoreHealth";
                 break; 
             case 2: 
+                firstMutation += "Dash"; 
+                secondMutation += "Extend";
                 break; 
             case 3: 
                 break; 
@@ -63,12 +84,28 @@ public class MutateScript : MonoBehaviour
         }
     }
     public void FirstMutation() {
-        LevelOneMutants(firstMutation);
+        switch (level) {
+           case 1: 
+             LevelOneMutants(firstMutation);
+            break;  
+           case 2: 
+             LevelTwoMutants(firstMutation); 
+            break;
+        }
+        
         firstButton.enabled = false; 
         Evolve.enabled = false;
     }
     public void SecondMutation() {
-        LevelOneMutants(secondMutation);
+        switch(level) {
+            case 1: 
+              LevelOneMutants(secondMutation);
+             break; 
+            case 2: 
+              LevelTwoMutants(secondMutation);
+             break;
+        }
+        
         secondButton.enabled = false; 
         Evolve.enabled = false;
     }

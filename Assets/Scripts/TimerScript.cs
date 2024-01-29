@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class TimerScript : MonoBehaviour
 {
@@ -26,6 +29,8 @@ public class TimerScript : MonoBehaviour
     
     private Camera mainCamera; 
     private Bounds cameraBounds; 
+
+    [SerializeField] private GameObject[] hooman;
     void Start()
     {
         mainCamera = Camera.main;
@@ -46,6 +51,7 @@ public class TimerScript : MonoBehaviour
         }
         else {
             SetTextDisplay(false);
+            SceneManager.LoadScene("GameEnd"); 
         }
     }
     void resetTimer() {
@@ -92,10 +98,14 @@ public class TimerScript : MonoBehaviour
                 // Instantiate trash objects at calculated positions
                 GameObject trash1 = Instantiate(obstacleTemplate, spawnPosition1, Quaternion.identity);
                 GameObject trash2 = Instantiate(obstacleTemplate, spawnPosition2, Quaternion.identity);
-
+                int spawnRate = Random.Range(0, 10);
+                if (spawnRate == 0 || spawnRate == 1) {
+                    GameObject guy = Instantiate(hooman[spawnRate], spawnPosition1, Quaternion.identity);
+                }
                 // Set random sprites to trash objects
                 Sprite randomSprite1 = spriteCollection[Random.Range(0, spriteCollection.Length)];
                 Sprite randomSprite2 = spriteCollection[Random.Range(0, spriteCollection.Length)];
+                
                 trash1.GetComponent<SpriteRenderer>().sprite = randomSprite1;
                 trash2.GetComponent<SpriteRenderer>().sprite = randomSprite2;
             }

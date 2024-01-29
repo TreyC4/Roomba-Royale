@@ -28,7 +28,6 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
-
     public void PauseGame(){
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
@@ -44,10 +43,21 @@ public class PauseMenu : MonoBehaviour
     public void GoToMainMenu(){
         Time.timeScale = 1f;
         //Replace ("MainMenu") with name of main menu scene
-        SceneManager.LoadScence("MainMenu");
+        SceneManager.LoadScene("StartMenu");
     }
 
     public void QuitGame(){
         Application.Quit();
     }
+    public void OpenMenu() {
+        if (pauseMenu.activeSelf == false) {
+            pauseMenu.SetActive(true); 
+            PauseGame();
+        }
+        else {
+            pauseMenu.SetActive(false); 
+            ResumeGame();
+        }
+    }
+    
 }

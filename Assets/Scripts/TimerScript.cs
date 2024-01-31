@@ -29,7 +29,7 @@ public class TimerScript : MonoBehaviour
     
     private Camera mainCamera; 
     private Bounds cameraBounds; 
-    private Roomba roomba; 
+    public Roomba roomba; 
     [SerializeField] private GameObject[] hooman;
     [SerializeField] private OfflineLeaderboard leaderboard;
 
@@ -48,11 +48,12 @@ public class TimerScript : MonoBehaviour
     {
         if (timer >= 0) {
             timer -= Time.deltaTime;
-            score = roomba.getScore();
             UpdateTimer(timer);
             
         }
         else {
+            score = roomba.getScore();
+            roomba.HP = 0;
             leaderboard.AddScore("Player1", (int)score);
             SetTextDisplay(false);
             SceneManager.LoadScene("GameEnd"); 

@@ -67,7 +67,7 @@ public class RoombaController : MonoBehaviour
                                         Mathf.Cos(transform.rotation.eulerAngles.z * Mathf.Deg2Rad));
             
             timer += Time.deltaTime;
-            transform.position = Vector2.Lerp(new Vector2(transform.position.x, transform.position.y) + dashDirection * new Vector2(0, .4f), transform.position, .4f); 
+            transform.position = Vector2.Lerp(new Vector2(transform.position.x, transform.position.y) + dashDirection * new Vector2(0, .4f), transform.position, 1f); 
         }
         if (extended) {
             timer += Time.deltaTime;
@@ -103,6 +103,6 @@ public class RoombaController : MonoBehaviour
     }
     public void upgradeExtend() {
         extendUpgrade = true;
-        transform.GetChild(4).GetComponent<SpriteRenderer>().enabled = true; 
+        transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = true; 
     }
 }
